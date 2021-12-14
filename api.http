@@ -1,0 +1,30 @@
+GET http://localhost:8083/?name=Vasya
+Accept: text/html; charset=utf-8
+
+###
+
+GET http://localhost:8083/?name=Vasya&lang=ua
+Accept: text/html; charset=utf-8
+
+###
+
+GET http://localhost:8083/about
+Accept: text/html; charset=utf-8
+
+###
+
+GET http://localhost:8083/blog
+Accept: application/json
+
+###
+// Framework\Http\Router\Exception\MethodNotAllowedException
+POST http://localhost:8083/blog
+Accept: application/json
+
+###
+
+GET http://localhost:8083/blog/2
+Accept: application/json
+
+###
+
