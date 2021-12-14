@@ -1,6 +1,7 @@
 <?php
 
 use Framework\Http\Router\Exception\RequestNotMatchedException;
+use Framework\Http\Router\Exception\MethodNotAllowedException;
 use Framework\Http\Router\RouteCollection;
 use Framework\Http\Router\Router;
 use Psr\Http\Message\ServerRequestInterface;
@@ -53,13 +54,13 @@ try {
     /** @var callable $action */
     $action = $result->getHandler();
     $response = $action($request);
-} catch (RequestNotMatchedException $e){
-    $response = new HtmlResponse('Undefined page', 404);
+} catch (RequestNotMatchedException|MethodNotAllowedException $e){
+    $response = new HtmlResponse($e->getMessage(), $e->getCode());
 }
 
 ### Postprocessing
 
-$response = $response->withHeader('X-Developer', 'ElisDN');
+$response = $response->withHeader('X-Developer', 'Kyrylo');
 
 ### Sending
 
