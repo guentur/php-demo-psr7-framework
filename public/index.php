@@ -2,6 +2,7 @@
 
 use App\Http\Action;
 use Framework\Http\Router\Exception\RequestNotMatchedException;
+use Framework\Http\Router\Exception\MethodNotAllowedException;
 use Framework\Http\Router\RouteCollection;
 use Framework\Http\Router\Router;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -33,8 +34,8 @@ try {
     /** @var callable $action */
     $action = $result->getHandler();
     $response = $action($request);
-} catch (RequestNotMatchedException $e){
-    $response = new HtmlResponse('Undefined page', 404);
+} catch (RequestNotMatchedException|MethodNotAllowedException $e){
+    $response = new HtmlResponse($e->getMessage());
 }
 
 ### Postprocessing
